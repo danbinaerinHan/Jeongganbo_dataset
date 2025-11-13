@@ -15,7 +15,6 @@
     #score-container { padding: 1rem; }
     #score { background: #fff; border: 1px solid #d4d9e6; border-radius: 8px; padding: 1rem; overflow-x: auto; box-shadow: 0 6px 20px rgba(31,58,147,0.08); }
     #message { margin: 2rem; padding: 1.5rem; border-radius: 8px; border: 1px solid #ffd1d1; background: #fff3f3; color: #a33; }
-    #notice { margin: 1.25rem 1.5rem 0; padding: 0.9rem 1rem; border-radius: 6px; border: 1px solid #cdd8f7; background: #eef3ff; color: #26418f; font-size: 0.95rem; line-height: 1.5; }
     button { cursor: pointer; border: none; border-radius: 4px; padding: 0.4rem 0.75rem; font-size: 0.9rem; }
     .back-btn { background: #fff; color: #1f3a93; }
     .download-btn { background: #ffbf47; color: #402200; }
@@ -30,7 +29,6 @@
     <a id="download-link" class="download-btn" href="#" download>MusicXML 다운로드</a>
   </header>
   <div id="message" hidden></div>
-  <div id="notice" hidden></div>
   <div id="score-container">
     <div id="score"></div>
   </div>
@@ -45,7 +43,6 @@
 
       const requestUrl = fileParam; // 이미 index.html에서 인코딩된 경로
       const decodedName = decodeURIComponent(requestUrl.split('/').pop() || '');
-      const MAX_MEASURES_TO_RENDER = 10;
       const INSTRUMENT_CODE_MAP = {
         daegeum: '대금',
         piri: '피리',
@@ -123,9 +120,6 @@
 
       async function renderScore(musicXml, instrumentNames, friendlyTitle) {
         const container = document.getElementById('score');
-        const noticeEl = document.getElementById('notice');
-        noticeEl.hidden = true;
-        noticeEl.textContent = '';
         const useInstrumentNames = Array.isArray(instrumentNames) && instrumentNames.length > 0;
         const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
           drawingParameters: 'default',
@@ -160,19 +154,7 @@
           });
         }
 
-        const totalMeasures = osmd.sheet && osmd.sheet.SourceMeasures ? osmd.sheet.SourceMeasures.length : 0;
-        const renderOptions = {};
-        if (MAX_MEASURES_TO_RENDER && totalMeasures > MAX_MEASURES_TO_RENDER) {
-          renderOptions.drawUpToMeasureNumber = MAX_MEASURES_TO_RENDER;
-          noticeEl.textContent = `첫 ${MAX_MEASURES_TO_RENDER}마디만 미리보기로 표시했습니다. 전체 악보는 다운로드 후 확인해 주세요.`;
-          noticeEl.hidden = false;
-        }
-
-        if (Object.keys(renderOptions).length > 0) {
-          osmd.render(renderOptions);
-        } else {
-          osmd.render();
-        }
+        osmd.render();
       }
 
       function overrideTitleInMusicXml(xmlString, title) {
