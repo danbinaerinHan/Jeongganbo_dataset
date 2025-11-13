@@ -27,7 +27,7 @@
   <h1>정악 정간보 &amp; MusicXML(오선보) 데이터셋 다운로드</h1>
   <p class="dataset-desc">해당 정악 데이터셋은 2024년 정간보 OMR 연구 <a href="https://dl.acm.org/doi/full/10.1145/3715159" target="_blank">Kim, Dongmin, et al. "On the automatic recognition of jeongganbo music notation: dataset and approach." ACM Journal on Computing and Cultural Heritage 18.3 (2025): 1-21.</a>
     에서 국립국악원에서 2014년에 발간한 정간보 악보집를 기반으로 OMR을 수행하여 얻은 정간보 원본 데이터와, 이를 규칙 기반 방식으로 MusicXML로 변환한 자료로 구성되어 있습니다.
-    본 데이터는 완전한 검수 단계에 도달하지 않았지만, 전통음악 연구·정간보 OMR·기보학·AI 음악생성 등 다양한 분야의 연구를 촉진하고자 다운로드받기 쉬운 형태로 공개합니다. 특히 기계가 읽을 수 있는 국악 악보 자료가 매우 드문 상황에서, 이 데이터셋이 후속 연구를 위한 참조 데이터로 쓰이기를 기대합니다.</p>
+    본 데이터는 완전한 검수 단계에 도달하지 않았지만, 특히 기계가 읽을 수 있는 국악 악보 자료가 매우 드문 상황에서 전통음악 연구·정간보 OMR·기보학·AI 음악생성 등 다양한 분야의 연구를 촉진하길 기대하며 데이터를 다운로드받기 쉬운 형태로 공개합니다. </p>
   <div class="highlight-box">
     <h2>JG-like encoding이란?</h2>
     <p>이 데이터셋의 정간보 파일은 <a href="https://arxiv.org/abs/2408.01096" target="_blank">'Six Dragons Fly Again'</a> 논문에서 제안한 JG-like encoding 형식으로 제공됩니다. JG-like encoding은 정간보의 격자 구조를 그대로 따르면서, 각 정간(Jeonggan)의 세부 위치를 <code>0</code>–<code>15</code> 사이의 숫자토큰으로 표현하고 그 뒤에 음높이(또는 길이를 가지는 시김새 기호)를 붙이는 방식입니다. 음의 길이는 별도의 duration 값 대신 정간 경계 기호(<code>|</code>)와 위치 토큰의 조합으로 표현합니다.</p>
