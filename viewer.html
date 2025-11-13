@@ -15,6 +15,7 @@
     #score-container { padding: 1rem; }
     #score { background: #fff; border: 1px solid #d4d9e6; border-radius: 8px; padding: 1rem; overflow-x: auto; box-shadow: 0 6px 20px rgba(31,58,147,0.08); }
     #message { margin: 2rem; padding: 1.5rem; border-radius: 8px; border: 1px solid #ffd1d1; background: #fff3f3; color: #a33; }
+    #notice { margin: 1.25rem 1.5rem 0; padding: 0.9rem 1rem; border-radius: 6px; border: 1px solid #cdd8f7; background: #eef3ff; color: #26418f; font-size: 0.95rem; line-height: 1.5; }
     button { cursor: pointer; border: none; border-radius: 4px; padding: 0.4rem 0.75rem; font-size: 0.9rem; }
     .back-btn { background: #fff; color: #1f3a93; }
     .download-btn { background: #ffbf47; color: #402200; }
@@ -29,6 +30,7 @@
     <a id="download-link" class="download-btn" href="#" download>MusicXML 다운로드</a>
   </header>
   <div id="message" hidden></div>
+  <div id="notice" hidden></div>
   <div id="score-container">
     <div id="score"></div>
   </div>
@@ -43,15 +45,30 @@
 
       const requestUrl = fileParam; // 이미 index.html에서 인코딩된 경로
       const decodedName = decodeURIComponent(requestUrl.split('/').pop() || '');
+      const MAX_MEASURES_TO_RENDER = 10;
+      const INSTRUMENT_CODE_MAP = {
+        daegeum: '대금',
+        piri: '피리',
+        haegeum: '해금',
+        ajaeng: '아쟁',
+        gayageum: '가야금',
+        geomungo: '거문고',
+      };
+      const friendlyTitle = extractFriendlyTitle(decodedName, INSTRUMENT_CODE_MAP);
+      const displayTitle = friendlyTitle || decodedName;
 
       const downloadLink = document.getElementById('download-link');
       downloadLink.href = requestUrl;
       downloadLink.setAttribute('download', decodedName || 'musicxml_file.musicxml');
 
       const currentFileEl = document.getElementById('current-file');
-      currentFileEl.textContent = decodedName;
+      currentFileEl.textContent = displayTitle;
       if (decodedName) {
-        document.title = `MusicXML 미리보기 - ${decodedName}`;
+        currentFileEl.setAttribute('title', decodedName);
+        downloadLink.title = decodedName;
+      }
+      if (displayTitle) {
+        document.title = `MusicXML 미리보기 - ${displayTitle}`;
       }
 
       try {
@@ -60,8 +77,8 @@
           throw new Error('파일을 불러올 수 없습니다. (HTTP ' + response.status + ')');
         }
         const musicXml = await response.text();
-        const instrumentNames = extractInstrumentNames(decodedName);
-        await renderScore(musicXml, instrumentNames);
+        const instrumentNames = extractInstrumentNames(decodedName, INSTRUMENT_CODE_MAP);
+        await renderScore(musicXml, instrumentNames, friendlyTitle);
       } catch (err) {
         console.error(err);
         showError('MusicXML을 렌더링하는 동안 오류가 발생했습니다. 파일 경로나 형식을 확인하세요.');
@@ -74,26 +91,41 @@
         document.getElementById('score').style.display = 'none';
       }
 
-      function extractInstrumentNames(filename) {
+      function extractInstrumentNames(filename, codeMap) {
         if (!filename) return [];
-        const map = {
-          daegeum: '대금',
-          piri: '피리',
-          haegeum: '해금',
-          ajaeng: '아쟁',
-          gayageum: '가야금',
-          geomungo: '거문고',
-        };
         const match = filename.match(/_([a-z_]+)\.musicxml$/i);
         if (!match) return [];
         return match[1]
           .split('_')
-          .map(code => map[code.toLowerCase()] || null)
+          .map(code => codeMap[code.toLowerCase()] || null)
           .filter(Boolean);
       }
 
-      async function renderScore(musicXml, instrumentNames) {
+      function extractFriendlyTitle(filename, codeMap) {
+        if (!filename) return '';
+        const withoutExt = filename.replace(/\.musicxml$/i, '');
+        const segments = withoutExt.split('_');
+        const titleSegments = [];
+        for (const segment of segments) {
+          const lower = segment.toLowerCase();
+          if (codeMap[lower]) {
+            break;
+          }
+          titleSegments.push(segment);
+        }
+        const rawTitle = titleSegments.join('_').trim();
+        const normalized = rawTitle.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+        if (normalized) {
+          return normalized;
+        }
+        return withoutExt.replace(/_/g, ' ').trim();
+      }
+
+      async function renderScore(musicXml, instrumentNames, friendlyTitle) {
         const container = document.getElementById('score');
+        const noticeEl = document.getElementById('notice');
+        noticeEl.hidden = true;
+        noticeEl.textContent = '';
         const useInstrumentNames = Array.isArray(instrumentNames) && instrumentNames.length > 0;
         const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
           drawingParameters: 'default',
@@ -103,9 +135,11 @@
         });
         await osmd.load(musicXml);
 
+        applyFriendlyTitle(osmd, friendlyTitle);
+
         if (useInstrumentNames && Array.isArray(osmd.sheet && osmd.sheet.Instruments)) {
           const instruments = osmd.sheet.Instruments;
-          const parts = osmd.sheet.Parts || [];
+          const parts = osmd.sheet && osmd.sheet.Parts ? osmd.sheet.Parts : [];
           instruments.forEach((instrument, idx) => {
             const name = instrumentNames[idx];
             if (!name || !instrument) return;
@@ -127,7 +161,37 @@
           });
         }
 
-        osmd.render();
+        const totalMeasures = osmd.sheet && osmd.sheet.SourceMeasures ? osmd.sheet.SourceMeasures.length : 0;
+        const renderOptions = {};
+        if (MAX_MEASURES_TO_RENDER && totalMeasures > MAX_MEASURES_TO_RENDER) {
+          renderOptions.drawUpToMeasureNumber = MAX_MEASURES_TO_RENDER;
+          noticeEl.textContent = `첫 ${MAX_MEASURES_TO_RENDER}마디만 미리보기로 표시했습니다. 전체 악보는 다운로드 후 확인해 주세요.`;
+          noticeEl.hidden = false;
+        }
+
+        if (Object.keys(renderOptions).length > 0) {
+          osmd.render(renderOptions);
+        } else {
+          osmd.render();
+        }
+      }
+
+      function applyFriendlyTitle(osmdInstance, title) {
+        if (!title) return;
+        const sheet = osmdInstance && osmdInstance.sheet ? osmdInstance.sheet : null;
+        if (sheet) {
+          sheet.Title = title;
+          if (sheet.MusicSheet) {
+            sheet.MusicSheet.Title = title;
+          }
+          const source = sheet.Source;
+          if (source && source.Work && source.Work.WorkTitle) {
+            source.Work.WorkTitle.Text = title;
+          }
+        }
+        if (osmdInstance && osmdInstance.Sheet) {
+          osmdInstance.Sheet.Title = title;
+        }
       }
     })();
   </script>
