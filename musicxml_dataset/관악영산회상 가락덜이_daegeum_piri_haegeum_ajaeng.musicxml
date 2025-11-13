@@ -5,7 +5,7 @@
   <identification>
     <creator type="composer">Music21</creator>
     <encoding>
-      <encoding-date>2024-11-08</encoding-date>
+      <encoding-date>2024-11-11</encoding-date>
       <software>music21 v.8.3.0</software>
     </encoding>
   </identification>
@@ -16,21 +16,21 @@
     </scaling>
   </defaults>
   <part-list>
-    <score-part id="P09cf6bfb000b7f5aa0a341d2819c70b6">
+    <score-part id="P2871ec06d7e5c4cd049ec91456be3838">
       <part-name />
     </score-part>
-    <score-part id="Peb2244000be3c293d14240ecc88111f9">
+    <score-part id="P0305420891a278493d4ec1b32d44a3f4">
       <part-name />
     </score-part>
-    <score-part id="P3c69c183210e976ff0d92cc5764fb1e8">
+    <score-part id="P9b079aa840a295069d1463fad30c76b7">
       <part-name />
     </score-part>
-    <score-part id="Pc844a304384f7bb303349e288e2dba55">
+    <score-part id="Pe513375f84c56ba8baced26a2b959a86">
       <part-name />
     </score-part>
   </part-list>
   <!--=========================== Part 1 ===========================-->
-  <part id="P09cf6bfb000b7f5aa0a341d2819c70b6">
+  <part id="P2871ec06d7e5c4cd049ec91456be3838">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -2355,6 +2355,12 @@
     </measure>
     <!--========================= Measure 10 =========================-->
     <measure number="10">
+      <attributes>
+        <time>
+          <beats>24</beats>
+          <beat-type>8</beat-type>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>A</step>
@@ -2633,7 +2639,7 @@
     </measure>
   </part>
   <!--=========================== Part 2 ===========================-->
-  <part id="Peb2244000be3c293d14240ecc88111f9">
+  <part id="P0305420891a278493d4ec1b32d44a3f4">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -3900,6 +3906,12 @@
     </measure>
     <!--========================= Measure 10 =========================-->
     <measure number="10">
+      <attributes>
+        <time>
+          <beats>24</beats>
+          <beat-type>8</beat-type>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>A</step>
@@ -4071,7 +4083,7 @@
     </measure>
   </part>
   <!--=========================== Part 3 ===========================-->
-  <part id="P3c69c183210e976ff0d92cc5764fb1e8">
+  <part id="P9b079aa840a295069d1463fad30c76b7">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -5164,6 +5176,12 @@
     </measure>
     <!--========================= Measure 10 =========================-->
     <measure number="10">
+      <attributes>
+        <time>
+          <beats>24</beats>
+          <beat-type>8</beat-type>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>A</step>
@@ -5257,7 +5275,7 @@
     </measure>
   </part>
   <!--=========================== Part 4 ===========================-->
-  <part id="Pc844a304384f7bb303349e288e2dba55">
+  <part id="Pe513375f84c56ba8baced26a2b959a86">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -5941,6 +5959,12 @@
     </measure>
     <!--========================= Measure 10 =========================-->
     <measure number="10">
+      <attributes>
+        <time>
+          <beats>24</beats>
+          <beat-type>8</beat-type>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>A</step>

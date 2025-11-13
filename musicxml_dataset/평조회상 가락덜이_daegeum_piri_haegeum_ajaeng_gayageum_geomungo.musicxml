@@ -5,7 +5,7 @@
   <identification>
     <creator type="composer">Music21</creator>
     <encoding>
-      <encoding-date>2024-11-08</encoding-date>
+      <encoding-date>2024-11-11</encoding-date>
       <software>music21 v.8.3.0</software>
     </encoding>
   </identification>
@@ -16,27 +16,27 @@
     </scaling>
   </defaults>
   <part-list>
-    <score-part id="P21253264287c93414c2009a175a90cad">
+    <score-part id="P80091a77dbc4f335e71dd754e6bbccf5">
       <part-name />
     </score-part>
-    <score-part id="P7e056c47250f8cf4b8c309bc0bb3029d">
+    <score-part id="P956699f614cb094f9abebe0dab2154ca">
       <part-name />
     </score-part>
-    <score-part id="Pdf1e231c6d9b265184708ff3bbc45cc4">
+    <score-part id="Pc01d8aa2d0e5b39f0ec2a47c76bb1908">
       <part-name />
     </score-part>
-    <score-part id="P2e95bc800e2e6bf9d52ffdbbb6a4d0cd">
+    <score-part id="P2e19713b0f3fad2ed338aa3b77a42a36">
       <part-name />
     </score-part>
-    <score-part id="Pc29e9de01812016c2e9abff880c21181">
+    <score-part id="P309605c193f3c8bfe935f95861ff433f">
       <part-name />
     </score-part>
-    <score-part id="P5f5c5f10a84625c13044b4d5e662ba7b">
+    <score-part id="Pf910ede79eb56c65c133c2093d5f56e6">
       <part-name />
     </score-part>
   </part-list>
   <!--=========================== Part 1 ===========================-->
-  <part id="P21253264287c93414c2009a175a90cad">
+  <part id="P80091a77dbc4f335e71dd754e6bbccf5">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -2909,7 +2909,7 @@
     </measure>
   </part>
   <!--=========================== Part 2 ===========================-->
-  <part id="P7e056c47250f8cf4b8c309bc0bb3029d">
+  <part id="P956699f614cb094f9abebe0dab2154ca">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -5090,7 +5090,7 @@
     </measure>
   </part>
   <!--=========================== Part 3 ===========================-->
-  <part id="Pdf1e231c6d9b265184708ff3bbc45cc4">
+  <part id="Pc01d8aa2d0e5b39f0ec2a47c76bb1908">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -6852,7 +6852,7 @@
     </measure>
   </part>
   <!--=========================== Part 4 ===========================-->
-  <part id="P2e95bc800e2e6bf9d52ffdbbb6a4d0cd">
+  <part id="P2e19713b0f3fad2ed338aa3b77a42a36">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -7555,7 +7555,7 @@
     </measure>
   </part>
   <!--=========================== Part 5 ===========================-->
-  <part id="Pc29e9de01812016c2e9abff880c21181">
+  <part id="P309605c193f3c8bfe935f95861ff433f">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -8445,7 +8445,7 @@
     </measure>
   </part>
   <!--=========================== Part 6 ===========================-->
-  <part id="P5f5c5f10a84625c13044b4d5e662ba7b">
+  <part id="Pf910ede79eb56c65c133c2093d5f56e6">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
