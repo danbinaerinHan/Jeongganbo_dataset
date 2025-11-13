@@ -133,9 +133,8 @@
           drawPartNames: useInstrumentNames,
           drawPartAbbreviations: useInstrumentNames,
         });
-        await osmd.load(musicXml);
-
-        applyFriendlyTitle(osmd, friendlyTitle);
+        const processedMusicXml = overrideTitleInMusicXml(musicXml, friendlyTitle);
+        await osmd.load(processedMusicXml);
 
         if (useInstrumentNames && Array.isArray(osmd.sheet && osmd.sheet.Instruments)) {
           const instruments = osmd.sheet.Instruments;
@@ -176,21 +175,53 @@
         }
       }
 
-      function applyFriendlyTitle(osmdInstance, title) {
-        if (!title) return;
-        const sheet = osmdInstance && osmdInstance.sheet ? osmdInstance.sheet : null;
-        if (sheet) {
-          sheet.Title = title;
-          if (sheet.MusicSheet) {
-            sheet.MusicSheet.Title = title;
+      function overrideTitleInMusicXml(xmlString, title) {
+        if (!title) return xmlString;
+        try {
+          const escapedTitle = title
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+          let xml = xmlString;
+
+          const movementRegex = /<movement-title[^>]*>[\s\S]*?<\/movement-title>/i;
+          if (movementRegex.test(xml)) {
+            xml = xml.replace(movementRegex, `<movement-title>${escapedTitle}</movement-title>`);
+          } else {
+            const movementNumberRegex = /<movement-number[^>]*>[\s\S]*?<\/movement-number>/i;
+            if (movementNumberRegex.test(xml)) {
+              xml = xml.replace(
+                movementNumberRegex,
+                match => `${match}\n  <movement-title>${escapedTitle}</movement-title>`
+              );
+            } else {
+              const scorePartwiseRegex = /<score-partwise[^>]*>/i;
+              if (scorePartwiseRegex.test(xml)) {
+                xml = xml.replace(
+                  scorePartwiseRegex,
+                  match => `${match}\n  <movement-title>${escapedTitle}</movement-title>`
+                );
+              }
+            }
           }
-          const source = sheet.Source;
-          if (source && source.Work && source.Work.WorkTitle) {
-            source.Work.WorkTitle.Text = title;
+
+          const workTitleRegex = /<work-title[^>]*>[\s\S]*?<\/work-title>/i;
+          if (workTitleRegex.test(xml)) {
+            xml = xml.replace(workTitleRegex, `<work-title>${escapedTitle}</work-title>`);
+          } else {
+            const workTagRegex = /<work[^>]*>/i;
+            if (workTagRegex.test(xml)) {
+              xml = xml.replace(
+                workTagRegex,
+                match => `${match}\n    <work-title>${escapedTitle}</work-title>`
+              );
+            }
           }
-        }
-        if (osmdInstance && osmdInstance.Sheet) {
-          osmdInstance.Sheet.Title = title;
+
+          return xml;
+        } catch (err) {
+          console.warn('Title override failed:', err);
+          return xmlString;
         }
       }
     })();
