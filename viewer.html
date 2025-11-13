@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>MusicXML 미리보기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.7.6/build/opensheetmusicdisplay.min.js"></script>
+  <style>
+    body { margin: 0; font-family: sans-serif; background: #f5f7fb; color: #222; }
+    header { background: #1f3a93; color: #fff; padding: 1rem 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
+    header a { color: #d7e4ff; text-decoration: none; font-size: 0.9rem; }
+    header a:hover { text-decoration: underline; }
+    .title { flex: 1 1 auto; font-size: 1.1rem; font-weight: 600; }
+    #score-container { padding: 1rem; }
+    #score { background: #fff; border: 1px solid #d4d9e6; border-radius: 8px; padding: 1rem; overflow-x: auto; box-shadow: 0 6px 20px rgba(31,58,147,0.08); }
+    #message { margin: 2rem; padding: 1.5rem; border-radius: 8px; border: 1px solid #ffd1d1; background: #fff3f3; color: #a33; }
+    button { cursor: pointer; border: none; border-radius: 4px; padding: 0.4rem 0.75rem; font-size: 0.9rem; }
+    .back-btn { background: #fff; color: #1f3a93; }
+    .download-btn { background: #ffbf47; color: #402200; }
+    .download-btn:hover { background: #ffad14; }
+    .back-btn:hover { background: #e6ecff; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">MusicXML 미리보기</div>
+    <a class="back-btn" href="index.html">← 목록으로 돌아가기</a>
+    <a id="download-link" class="download-btn" href="#" download>MusicXML 다운로드</a>
+  </header>
+  <div id="message" hidden></div>
+  <div id="score-container">
+    <div id="score"></div>
+  </div>
+  <script>
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const fileParam = params.get('file');
+      if (!fileParam) {
+        showError('불러올 MusicXML 파일 경로가 제공되지 않았습니다.');
+        return;
+      }
+      const filePath = decodeURIComponent(fileParam);
+      document.getElementById('download-link').href = filePath;
+
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+          throw new Error('파일을 불러올 수 없습니다. (HTTP ' + response.status + ')');
+        }
+        const musicXml = await response.text();
+        await renderScore(musicXml);
+      } catch (err) {
+        console.error(err);
+        showError('MusicXML을 렌더링하는 동안 오류가 발생했습니다. 파일 경로나 형식을 확인하세요.');
+      }
+
+      function showError(msg) {
+        const messageEl = document.getElementById('message');
+        messageEl.textContent = msg;
+        messageEl.hidden = false;
+        document.getElementById('score').style.display = 'none';
+      }
+
+      async function renderScore(musicXml) {
+        const container = document.getElementById('score');
+        const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
+          drawingParameters: 'default',
+          drawTitle: true,
+        });
+        await osmd.load(musicXml);
+        osmd.render();
+      }
+    })();
+  </script>
+</body>
+</html>
