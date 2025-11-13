@@ -5,7 +5,7 @@
   <identification>
     <creator type="composer">Music21</creator>
     <encoding>
-      <encoding-date>2024-11-08</encoding-date>
+      <encoding-date>2024-11-11</encoding-date>
       <software>music21 v.8.3.0</software>
     </encoding>
   </identification>
@@ -16,21 +16,21 @@
     </scaling>
   </defaults>
   <part-list>
-    <score-part id="P09679eb55ac787007bc1479332c4523b">
+    <score-part id="P96ba0efa33a78300befed3a8114b12c0">
       <part-name />
     </score-part>
-    <score-part id="P03a75dad8e29204f32a210f9d2927aa5">
+    <score-part id="Pd840cf420e2db50c12b249b9c9eb0383">
       <part-name />
     </score-part>
-    <score-part id="Pfeaa38db92b5e66c77222d83df0e09dd">
+    <score-part id="Pabae28fedbec870958fc6715930f777f">
       <part-name />
     </score-part>
-    <score-part id="P75413f81205a7e1c118d47dd34cf520e">
+    <score-part id="P9259785a062f82e94eb53f4df09c52d7">
       <part-name />
     </score-part>
   </part-list>
   <!--=========================== Part 1 ===========================-->
-  <part id="P09679eb55ac787007bc1479332c4523b">
+  <part id="P96ba0efa33a78300befed3a8114b12c0">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -4035,7 +4035,7 @@
     </measure>
   </part>
   <!--=========================== Part 2 ===========================-->
-  <part id="P03a75dad8e29204f32a210f9d2927aa5">
+  <part id="Pd840cf420e2db50c12b249b9c9eb0383">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -5971,7 +5971,7 @@
     </measure>
   </part>
   <!--=========================== Part 3 ===========================-->
-  <part id="Pfeaa38db92b5e66c77222d83df0e09dd">
+  <part id="Pabae28fedbec870958fc6715930f777f">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
@@ -7737,7 +7737,7 @@
     </measure>
   </part>
   <!--=========================== Part 4 ===========================-->
-  <part id="P75413f81205a7e1c118d47dd34cf520e">
+  <part id="P9259785a062f82e94eb53f4df09c52d7">
     <!--========================= Measure 1 ==========================-->
     <measure number="1">
       <attributes>
