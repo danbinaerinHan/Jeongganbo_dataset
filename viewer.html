@@ -103,7 +103,7 @@
         });
         await osmd.load(musicXml);
 
-        if (useInstrumentNames && Array.isArray(osmd.sheet?.Instruments)) {
+        if (useInstrumentNames && Array.isArray(osmd.sheet && osmd.sheet.Instruments)) {
           const instruments = osmd.sheet.Instruments;
           const parts = osmd.sheet.Parts || [];
           instruments.forEach((instrument, idx) => {
