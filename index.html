@@ -6,45 +6,73 @@
   <title>Jeongganbo &amp; MusicXML Dataset</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f8fc;
+      --bg: #fafbfd;
       --card: #ffffff;
-      --border: #e2e8f0;
-      --primary: #1a3a6b;
-      --primary-light: #2d5aa0;
-      --accent: #c8913a;
-      --accent-bg: #fef9f0;
-      --accent-border: #f0d9a8;
-      --text: #1e293b;
+      --border: #e6e9f0;
+      --border-soft: #eef0f5;
+      --primary: #1e3a5f;
+      --primary-light: #2d5388;
+      --primary-deep: #0f2444;
+      --accent: #b88a3e;
+      --accent-light: #d4a85e;
+      --accent-bg: #faf5e9;
+      --text: #0f172a;
+      --text-soft: #334155;
       --text-muted: #64748b;
-      --link: #2563eb;
-      --link-hover: #1d4ed8;
-      --radius: 12px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --link: #2d5388;
+      --link-hover: #0f2444;
+      --radius-sm: 6px;
+      --radius: 8px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 2px rgba(15,36,68,0.04);
+      --shadow-md: 0 4px 14px rgba(15,36,68,0.06), 0 1px 3px rgba(15,36,68,0.04);
+      --shadow-lg: 0 16px 40px rgba(15,36,68,0.1), 0 4px 10px rgba(15,36,68,0.04);
+      --sans: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, monospace;
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: 'cv11', 'ss01', 'tnum';
+    }
+    ::selection { background: rgba(184,138,62,0.25); color: var(--primary-deep); }
+    :focus-visible { outline: 2px solid var(--primary-light); outline-offset: 2px; border-radius: 4px; }
 
     /* Hero Header */
     .hero {
-      background: linear-gradient(135deg, #0f2447 0%, #1a3a6b 50%, #2d5aa0 100%);
+      background: #0f2444;
       color: #fff;
-      padding: 3rem 2rem 2.5rem;
+      padding: 4.5rem 2rem 3.75rem;
       position: relative;
       overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(45,83,136,0.45) 0%, transparent 60%),
+        radial-gradient(circle at 90% 100%, rgba(184,138,62,0.06) 0%, transparent 50%);
+      pointer-events: none;
     }
     .hero::after {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
-      border-radius: 50%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.08) 50%, transparent 90%);
     }
     .hero-inner {
       max-width: 960px;
@@ -52,194 +80,273 @@
       position: relative;
       z-index: 1;
     }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 1.5rem;
+    }
+    .hero-kicker::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent-light);
+      opacity: 0.6;
+    }
     .hero h1 {
-      font-size: 1.75rem;
+      font-size: 2.4rem;
       font-weight: 700;
-      margin: 0 0 0.75rem;
-      letter-spacing: -0.02em;
+      margin: 0 0 1.25rem;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
     }
     .hero-sub {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.8);
-      line-height: 1.8;
-      max-width: 780px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.75;
+      max-width: 720px;
+      font-weight: 400;
     }
-    .hero-sub a { color: #93bbff; text-decoration: underline; text-underline-offset: 2px; }
-    .hero-sub a:hover { color: #bdd4ff; }
+    .hero-sub a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212,168,94,0.6);
+      padding-bottom: 1px;
+      transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+    }
+    .hero-sub a:hover { color: var(--accent-light); border-color: var(--accent-light); }
 
     /* Main content */
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 0 1.5rem 3rem;
+      padding: 0 1.5rem 4rem;
     }
 
     .source-note {
-      margin: 1.25rem 0 0;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.7);
+      margin: 1.5rem 0 0;
+      padding-top: 1rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
-    .source-note a { color: #93bbff; }
+    .source-note a { color: var(--accent-light); text-underline-offset: 3px; }
+    .source-note a:hover { color: #ead2a1; }
 
     /* Info box */
     .info-card {
-      margin: 1.5rem 0 2rem;
-      padding: 1.25rem 1.5rem;
-      background: #f0f4ff;
-      border: 1px solid #d0daf0;
-      border-left: 4px solid var(--primary-light);
-      border-radius: var(--radius);
+      margin: 2.5rem 0 3rem;
+      padding: 1.75rem 2rem;
+      background: var(--card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
     }
     .info-card h2 {
-      margin: 0 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0 0 0.85rem;
       font-size: 1rem;
       font-weight: 600;
-      color: var(--primary);
+      color: var(--primary-deep);
+      letter-spacing: -0.01em;
+    }
+    .info-card h2::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
     }
     .info-card p {
-      margin: 0 0 0.5rem;
-      font-size: 0.9rem;
-      color: #334155;
-      line-height: 1.7;
+      margin: 0 0 0.6rem;
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      line-height: 1.8;
     }
     .info-card p:last-child { margin-bottom: 0; }
     .info-card code {
-      background: rgba(45,90,160,0.1);
-      padding: 0.15em 0.4em;
+      background: #f1f4f9;
+      padding: 0.15em 0.45em;
       border-radius: 4px;
-      font-size: 0.85em;
-      color: var(--primary);
+      font-size: 0.82em;
+      color: var(--primary-deep);
+      font-family: var(--mono);
+      font-weight: 500;
     }
 
     /* Section */
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      color: var(--primary);
-      margin: 2.5rem 0 0.75rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--primary);
-      display: inline-block;
+      color: var(--primary-deep);
+      margin: 3.5rem 0 0.4rem;
+      letter-spacing: -0.02em;
     }
     .section-desc {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
-      margin: 0 0 1rem;
+      margin: 0 0 1.5rem;
+      line-height: 1.6;
     }
 
     /* Download buttons */
     .download-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
     }
     .dl-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.25rem;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      gap: 0.5rem;
+      padding: 0.7rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.87rem;
+      font-weight: 500;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.2s var(--ease);
+      letter-spacing: -0.005em;
+      border: 1px solid transparent;
     }
     .dl-btn-primary {
-      background: var(--primary);
+      background: var(--primary-deep);
       color: #fff;
     }
-    .dl-btn-primary:hover { background: var(--primary-light); }
-    .dl-btn-secondary {
-      background: #fff;
-      color: var(--primary);
-      border: 1.5px solid var(--primary);
+    .dl-btn-primary:hover {
+      background: #1a3258;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
     }
-    .dl-btn-secondary:hover { background: #f0f4ff; }
-    .dl-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .dl-btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .dl-btn-secondary:hover {
+      border-color: var(--primary-light);
+      color: var(--primary-deep);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    .dl-btn svg { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.85; }
 
     /* Table */
     .table-wrap {
       background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-soft);
     }
     table { border-collapse: collapse; width: 100%; }
     th {
-      background: #f1f5f9;
-      font-size: 0.8rem;
+      background: #f8fafc;
+      font-size: 0.72rem;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 0.75rem 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 1rem 1rem;
       text-align: left;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 1px solid var(--border-soft);
       white-space: nowrap;
     }
     td {
-      padding: 0.6rem 0.75rem;
+      padding: 0.85rem 1rem;
       font-size: 0.88rem;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--border-soft);
       vertical-align: middle;
+      color: var(--text-soft);
     }
+    td:first-child { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    tbody tr td:nth-child(2) { font-weight: 600; color: var(--text); }
     .idx-col { width: 3rem; text-align: center; }
-    tbody tr { transition: background 0.15s ease; }
-    tbody tr:hover { background: #f8fafd; }
+    tbody tr { transition: background 0.18s var(--ease); }
+    tbody tr:hover { background: #f8fafc; }
     tbody tr:last-child td { border-bottom: none; }
 
     /* Links in table */
-    a { color: var(--link); text-decoration: none; }
-    a:hover { color: var(--link-hover); text-decoration: underline; }
+    a { color: var(--link); text-decoration: none; transition: color 0.15s var(--ease); }
+    a:hover { color: var(--link-hover); }
     td a {
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.3rem;
       font-weight: 500;
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      transition: background 0.15s;
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      transition: all 0.15s var(--ease);
+      background: #f1f4f9;
+      color: var(--primary);
     }
-    td a:hover { background: #eff4ff; text-decoration: none; }
-    .missing { color: #b00; }
+    td a:hover {
+      background: var(--primary-deep);
+      color: #fff;
+    }
+    .missing { color: #b14a3e; font-weight: 500; }
 
     /* License & Citation */
     .license {
-      margin-top: 2.5rem;
+      margin-top: 3.5rem;
       font-weight: 500;
       font-size: 0.92rem;
-      line-height: 1.7;
+      line-height: 1.8;
+      color: var(--text-soft);
     }
     .citation {
-      background: #f8fafc;
-      padding: 1rem 1.25rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      margin-top: 1rem;
+      background: #0f2444;
+      padding: 1.5rem 1.75rem;
+      border-radius: var(--radius-lg);
       overflow-x: auto;
-      font-size: 0.82rem;
-      line-height: 1.6;
-      color: #475569;
+      font-size: 0.78rem;
+      line-height: 1.75;
+      color: #cfd8e8;
+      font-family: var(--mono);
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .citation::before {
+      content: 'BibTeX';
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(212,168,94,0.7);
+      font-family: var(--sans);
     }
 
     /* Footer */
     .site-footer {
-      margin-top: 3rem;
-      padding: 1.5rem 0;
-      font-size: 0.82rem;
+      margin-top: 4rem;
+      padding: 2rem 0 1.5rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       text-align: center;
       border-top: 1px solid var(--border);
+      letter-spacing: 0.02em;
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .hero { padding: 2rem 1.25rem 1.75rem; }
-      .hero h1 { font-size: 1.3rem; }
+      .hero { padding: 2.25rem 1.25rem 2rem; }
+      .hero h1 { font-size: 1.45rem; }
+      .hero-kicker { font-size: 0.65rem; letter-spacing: 0.18em; }
       .container { padding: 0 1rem 2rem; }
+      .section-title { font-size: 1.2rem; }
       .table-wrap { overflow-x: auto; }
       table { min-width: 700px; }
     }
@@ -248,6 +355,7 @@
 <body>
   <div class="hero">
     <div class="hero-inner">
+      <div class="hero-kicker">Jeongak · Jeongganbo &amp; MusicXML</div>
       <h1>정악 정간보 &amp; MusicXML 데이터셋</h1>
       <p class="hero-sub">해당 정악 데이터셋은 2024년 정간보 OMR 연구 <a href="https://dl.acm.org/doi/full/10.1145/3715159" target="_blank">Kim, Dongmin, et al. "On the automatic recognition of jeongganbo music notation: dataset and approach." ACM Journal on Computing and Cultural Heritage 18.3 (2025): 1-21.</a>
         에서 국립국악원에서 2015-16년에 발간한 정간보 악보집를 기반으로 OMR을 수행하여 얻은 정간보 원본 데이터와, 이를 규칙 기반 방식으로 MusicXML로 변환한 자료로 구성되어 있습니다.
@@ -383,12 +491,14 @@
       });
     </script>
     <p class="license">본 데이터셋은 연구 목적으로 자유롭게 사용할 수 있습니다.<br>연구 목적으로 활용할 경우 아래 논문을 인용해 주세요.</p>
-<pre class="citation">@article{{han2024six,
-  title={{Six dragons fly again: Reviving 15th-century korean court music with transformers and novel encoding}},
-  author={{Han, Danbinaerin and Gotham, Mark and Kim, Dongmin and Park, Hannah and Lee, Sihun and Jeong, Dasaem}},
-  journal={{arXiv preprint arXiv:2408.01096}},
-  year={{2024}}
-}}</pre>
+<pre class="citation">@article{han2026six,
+  title={Six Dragons Fly Again: A Journey of Reviving 15th-Century Korean Court Music},
+  author={Han, Danbinaerin and Gotham, Mark and Kim, Dongmin and Park, Hannah and Lee, Sihun and Park, Jeonggyeong and Jeong, Dasaem},
+  journal={Transactions of the International Society for Music Information Retrieval},
+  volume={9},
+  number={1},
+  year={2026}
+}</pre>
   </div>
   <footer class="site-footer">© 2025 Jeongganbo Dataset. Made by Danbinaerin Han</footer>
 </body>
